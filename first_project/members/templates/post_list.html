@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Posts</title>
+</head>
+<body>
+    <h1>Hey, I am a postMan :hehe</h1>
+    <a href="{% url 'create_post' %}">+ Create Post</a>
+    <hr>
+
+    {% for post in posts %}
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <p>Likes: {{ post.likes }}</p>
+        <form method="post" action="{% url 'like_post' post.id %}">
+            {% csrf_token %}
+            <button type="submit">Like</button>
+        </form>
+        <a href="{% url 'edit_post' post.id %}">Edit</a> |
+        <a href="{% url 'delete_post' post.id %}">Delete</a> |
+        <a href="{% url 'post_detail' post.id %}">Comment</a>
+        <hr>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</body>
+</html>
