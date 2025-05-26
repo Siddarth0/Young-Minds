@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}My Social App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <nav class="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <a href="{% url 'post_list' %}" class="font-bold text-xl">SocialApp</a>
+        <div>
+            {% if user.is_authenticated %}
+                <span class="mr-4">Hello, {{ user.username }}!</span>
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="hover:underline bg-transparent border-none text-white cursor-pointer">
+                        Logout
+                    </button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="mr-4 hover:underline">Login</a>
+                <a href="{% url 'register' %}" class="hover:underline">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container mx-auto flex-grow p-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-blue-600 text-white p-4 text-center">
+        &copy; 2025 My Social App
+    </footer>
+
+</body>
+</html>

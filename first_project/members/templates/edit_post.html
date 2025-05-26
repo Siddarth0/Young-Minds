@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Post</title>
-</head>
-<body>
-    <h1>Edit Post: {{ post.title }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    <a href="{% url 'post_list' %}">Cancel</a>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Edit Post{% endblock %}
+{% block content %}
+<h2 class="text-2xl font-bold mb-4">Edit Post</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" value="{{ post.title }}" required class="w-full border-2 border-black rounded p-2 mb-4">
+    <textarea name="content" rows="5" required class="w-full border-2 border-black rounded p-2 mb-4">{{ post.content }}</textarea>
+    <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded">Update Post</button>
+</form>
+{% endblock %}
